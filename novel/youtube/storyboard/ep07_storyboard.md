@@ -1,0 +1,122 @@
+# Эпизод 7. «Рукопожатие будущего президента» — раскадровка и промпты
+
+**Главы:** 23–25 · **озвучка:** 79–87 мин · **кадров всего:** 23
+
+**Как использовать в Google Flow.** Создайте перечисленных ниже героев один раз (по листам из `character_sheets.md`) и называйте их в промптах так же, как здесь, заглавными латинскими буквами. Каждый пронумерованный абзац — отдельный готовый промпт со стилем в конце. Метка «видение» значит, что кадр сломан помехами телевизора, «документ» — коллаж из бумаг. Время у каждого кадра примерное (для озвучки 105 слов в минуту); после монтажа сдвиньте под реальный звук.
+
+**Герои этого эпизода (создать в Flow):** `KIRILL`, `MITYA`, `RAKITIN`, `STRELNIKOV`, `IRINA`, `VANYA_THANH`, `VIKA`, `LANSKOY`, `SIVY`, `MUKHA`
+
+**Второстепенные** (ZHORA, TAMARA, BRUSNITSYN и т. п.) описаны прямо в промптах; для них можно создать героев, если хотите единый облик.
+
+---
+
+## Глава 23. Генерал
+
+*Кирилл читает, коньяк Ракитина, Курбатов у проходной, тетрадь «Рукопожатия», «ножки Буша» по ТВ.*
+
+Начало главы ≈ **00:04**, длительность ≈ 27:35, кадров: 7, менять каждые ≈ 03:56.
+
+**01** · ≈ 00:04
+
+01. June 1996, a veranda table in Sosnovy Ples: KIRILL absorbed in a paperback with a cut-out photo of a hockey goalkeeper in mid-dive taped over the author's portrait on the first page, a pile of similar books; MITYA beside him in shirtsleeves, marking a page; a river through large glass windows. Quiet success, warm morning light. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**02** · ≈ 04:00
+
+02. The Rakitin wing in the evening: RAKITIN sits on a stool by an unlit stove with a glass of Armenian cognac, looking at the 55 blue volumes of Lenin; a bottle on the table; MITYA at the desk; a grey summer dusk at the window. Heavy man, quiet confession. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**03** · ≈ 07:57
+
+03. Mid-June at the gate of the "Rakitin-Tekstil" factory: a Soviet brick gatehouse with a faded bas-relief of a weaver handing a roll of cloth to a worker with a hammer, a tricolour banner (no legible text), 400 weavers in housecoats and headscarves cracking sunflower seeds, three black Volgas and an army UAZ with automatic-armed men at the corners. Hot sun, dust, crowd. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**04** · ≈ 11:53
+
+04. GENERAL KURBATOV, a gigantic slow man with a heavy red face like a brick, a tight military knot of tie, small light-brown tired intelligent eyes, shakes hands with the crowd of weavers; MITYA shoulders through the crowd toward him; an old weaver clings to the general's sleeve. A scene of scale and quiet power. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**05** · видение · ≈ 15:50
+
+05. Vision on the handshake with KURBATOV: a vast office with windows onto the Kremlin wall, six white telephones with state emblems, the general without a jacket at a long desk; four calendar pages flipping from summer to autumn; a voice saying "You're free, Pavel Ilyich"; then a lonely field of snow where he stands in a greatcoat and something dark and heavy rumbles far above. Static edges, cold blue. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark. VISION STYLE: the image fractures at the edges into grey analog TV static, cold blue-black desaturated tones, fragmented dreamlike composition, one burning detail.
+
+**06** · документ · ≈ 19:46
+
+06. An open brown oilcloth notebook on a plain wooden table, page headed in handwriting with the underlined word "HANDSHAKES" (no legible text), entries in a neat teacher's hand, a ballpoint pen, a small lamp; a ghost of a first line; top-down view. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark. DOCUMENT STYLE: aged paper collage, yellowed newsprint, typewritten sheets, envelopes with postmarks, squared school notebook, warm lamp light, camera looking down, gouache texture, no readable text.
+
+**07** · ≈ 23:42
+
+07. A veranda dinner of the Rakitin family: a small kitchen TV "Sharp" with a cracked corner shows STRELNIKOV in an orange helmet throwing frozen chicken legs from a truck with a white freezer into a stadium crowd; RAKITIN stern, IRINA at the window, KIRILL laughing, VANYA_THANH laying down his fork and saying something quiet, MITYA cold with sudden dread. Warm table, cold screen. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+## Глава 24. Голова льва
+
+*Ваня и гражданство, бамбуковый каркас, видение Вьетнама 1956-го, зеркальце, Вика.*
+
+Начало главы ≈ **27:08**, длительность ≈ 23:33, кадров: 6, менять каждые ≈ 03:55.
+
+**08** · ≈ 27:08
+
+08. A tidy garage-workshop: a workbench, vises, shelves with jars of nails sorted by size, wall tool outlines painted in white to show missing tools, smell of olifa and wallpaper paste; VANYA_THANH and MITYA sit across a bench practising citizenship answers; a flag with three stripes on a poster. Warm evening light and calm. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**09** · ≈ 31:03
+
+09. VANYA_THANH on a low stool gluing a bamboo frame made from cut fishing rods with layers of "Tikhorechensky Vestnik" newspaper, headlines with Strelnikov's helmeted face half covered by the next layer of paper; a table with a basin of paste; MITYA hands him a wet strip. Quiet craftsmanship, newsprint patterns. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**10** · видение · ≈ 34:59
+
+10. Vision in Vietnam, 1956: green rice paddies stretching to the horizon, thatched roofs, a boy of ten (young THANH) holding on to the long tail of red lion cloth; his father dances in a red-and-gold lion head with a mirror on the forehead; a green army truck arrives, a smiling cadre in a cap throws handfuls of rice to the crowd, then reads names from a list; the lion head stands alone on the dusty ground reflecting the sky and the cadre who looks into the mirror and smiles. Warm sun turning grey, the edges fray into static. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark. VISION STYLE: the image fractures at the edges into grey analog TV static, cold blue-black desaturated tones, fragmented dreamlike composition, one burning detail.
+
+**11** · ≈ 38:54
+
+11. A red papier-mâché lion head finished and glossy: golden eyebrows and curls on the cheeks, a white rope beard, huge round eyes with wooden blinking eyelids, a felt tongue and styrofoam teeth, a tail of red and yellow scarves hung beside it; on the forehead a small round mirror from a powder compact; garage doorway behind it, light of morning. A face of both joy and fear. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**12** · ≈ 42:50
+
+12. Evening at the garage door: KIRILL in the doorway of the workshop with his hockey bag, VIKA, a small lively girl with a very short haircut, a skull earring and a huge plaid shirt, circling the lion head curiously; MITYA and VANYA_THANH quietly watching; the sky orange behind them. Youth, laughter. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**13** · ≈ 46:45
+
+13. Extreme close view of the little round mirror in the lion's forehead: in it MITYA's thin pale face with a scar over the eyebrow and frightened eyes, and behind him the open garage doors, apple trees, blue sky over the Volga; a small complete world reflected in glass. "Evil is afraid only of itself." Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+## Глава 25. Фонарь
+
+*Митинг на «Текстильщике» 17 августа 1996-го, трактор, каска, рукопожатие, Ланской.*
+
+Начало главы ≈ **50:26**, длительность ≈ 32:45, кадров: 10, менять каждые ≈ 03:16.
+
+**14** · ≈ 50:26
+
+14. 17 August 1996, 32 °C, an entrance to the "Tekstilshchik" stadium: girls in white T-shirts under tents of the foundation "Vozrozhdenie" handing out packets with a bottle of "Buratino", a bun, two "Snickers" and a small tricolour flag; a bus line with signs "Free. Meeting." (no legible text); crowds of old women and children. Dusty heat haze. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**15** · ≈ 53:42
+
+15. The stadium full to the brim: crumbling concrete stands, people sitting on newspapers in the grass up to the track, a wooden stage covered with tricolour fabric under a huge banner (no legible text), black military loudspeakers on poles; a chain of 30 bald men in black T-shirts "ATLANT" with homemade rubber truncheons, dark glasses; a thick blue haze of sweat and tobacco. Large scale, hot palette. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**16** · ≈ 56:59
+
+16. A yellow tracked tractor enters the stadium through the south gate across the cinder track as the crowd parts like water before an icebreaker; on the cab roof STRELNIKOV stands upright like a surfer, in a white shirt with sleeves rolled and a jeans and an orange helmet with a lit headlamp, laughing with his head thrown back; the crowd's hands and flags. Hot noon, absurd triumph. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**17** · ≈ 1:00:15
+
+17. STRELNIKOV on the stage raises his orange helmet like a miner's lamp above the crowd, face wide and warm, behind him a huge banner; below the stage the faces of fifteen thousand upturned faces lit like sunflowers; old women crying, children on shoulders. His voice carries across the field. Heat shimmer, contrast of the cheerful and the sinister. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**18** · ≈ 1:03:32
+
+18. Beside the stage in shadow stands LANSKOY, an unremarkable man in grey trousers and a grey short-sleeved shirt with a small notebook, no tie, scanning the crowd like a lighthouse; behind him a young man in a "Kino" T-shirt with a cardboard sign is being led around the corner of the stand by two "Atlant" men. Quiet menace behind the happy celebration. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**19** · ≈ 1:06:48
+
+19. The handshake: close low-angle on STRELNIKOV in a white shirt and an orange helmet gripping the thin hand of MITYA, tall, gaunt, with a scar above his eyebrow; STRELNIKOV still smiles but his eyes have gone small, cold and frightened; MITYA's eyes are black and unfocused; between their palms a seep of grey analog TV static like frost; slightly behind, out of focus, SIVY in a grey tracksuit with bleached eyebrows and bright green eyes, and MUKHA with a gold chain. Harsh midday sun, heat haze. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**20** · видение · ≈ 1:10:05
+
+20. Vision on the handshake: a long tiled underpass with dead lamps, a single yellow circular headlamp swaying and slowly approaching from a white spot at the end; around it glimpses: the white and gold Georgievsky Hall, a grey-haired man laying a hand on a red book; snowy static; a gaunt winter bear walking through black firs while villages burn behind it; a blue haze over a big city; columns of covered trucks with boys in the back; a queue of mothers with framed photos; a small blue sleeve with three white stripes and a woman's cry. Cold blue, static, a single orange point. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark. VISION STYLE: the image fractures at the edges into grey analog TV static, cold blue-black desaturated tones, fragmented dreamlike composition, one burning detail.
+
+**21** · ≈ 1:13:21
+
+21. MUKHA's huge hand with a gold signet ring pushes MITYA backwards into the crowd as STRELNIKOV turns back to the next old woman with a smiling face; VANYA_THANH catches MITYA from behind; the orange helmet with its lit lamp floating above the heads of the crowd, SIVY looking back once with cold green eyes like someone memorising a licence plate. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**22** · ≈ 1:16:38
+
+22. At the stadium exit: two militia officers stop VANYA_THANH, one reaching for his elbow, VANYA's face turning blank like carved wood; LANSKOY steps in quietly holding a red ID with a golden eagle in the corner of the frame; MITYA with a checked handkerchief to his nose. Hot dusty shadows. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
+**23** · ≈ 1:19:54
+
+23. An evening drive home in the grey Niva along the Volga: VANYA_THANH at the wheel, KIRILL and VIKA holding hands in the back, MITYA with his head against the headrest looking at an enormous red-orange sun like a copper basin; in his closed eyes a small yellow lamp still approaches in the dark. Slow, quiet. Hand-drawn illustration for an adult literary thriller, gouache and dry brush on textured cream paper, visible pencil sketch lines, realistic human proportions, small realistic eyes, no cartoon exaggeration, no rosy cheeks, restrained muted palette of grey-blue, ochre and faded brown with a single warm accent, deep shadows, one strong light source, melancholic tense mood, Soviet book illustration influence, cinematic composition, authentic 1990s provincial Russia, 16:9, no text, no letters, no watermark.
+
