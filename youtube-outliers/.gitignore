@@ -1,3 +1,5 @@
 results/
 .cache/
 __pycache__/
+run_*.log
+results_*.txt

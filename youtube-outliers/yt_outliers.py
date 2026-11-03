@@ -523,11 +523,19 @@ def human(n) -> str:
     return f"{n:.0f}" if n == int(n) else f"{n:.2f}"
 
 
+def fmt_duration(sec) -> str:
+    if not sec:
+        return "—"
+    h, rem = divmod(int(sec), 3600)
+    m, s = divmod(rem, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
 def print_table(results: list[Result]) -> None:
     if not results:
         print("Ничего не найдено по заданным критериям.")
         return
-    head = f"{'#':>3} {'x-раз':>6} {'просм.':>7} {'медиана':>7} {'подп.':>7} {'пр/подп':>7} {'дней':>5} {'тип':>6}  ролик"
+    head = f"{'#':>3} {'x-раз':>6} {'просм.':>7} {'медиана':>7} {'подп.':>7} {'пр/подп':>7} {'дней':>5} {'длит.':>7}  ролик"
     print(head)
     print("-" * min(len(head) + 60, 160))
     for i, r in enumerate(results, 1):
@@ -536,7 +544,7 @@ def print_table(results: list[Result]) -> None:
         age = f"{r.age_days:.0f}" if r.age_days is not None else "—"
         title = (v.title[:55] + "…") if len(v.title) > 56 else v.title
         print(f"{i:>3} {score:>6} {human(v.views):>7} {human(r.baseline):>7} {human(r.subscribers):>7} "
-              f"{human(r.views_per_sub):>7} {age:>5} {'shorts' if v.is_short else 'long':>6}  "
+              f"{human(r.views_per_sub):>7} {age:>5} {fmt_duration(v.duration) if not v.is_short else 'shorts':>7}  "
               f"{title} | {v.channel} | {v.url}")
 
 
@@ -570,6 +578,7 @@ def write_html(results: list[Result], path: Path, meta: dict) -> None:
             f"<td class=n data-v='{d['subscribers'] or 0}'>{human(d['subscribers'])}</td>"
             f"<td class=n data-v='{d['views_per_sub'] or 0}'>{human(d['views_per_sub'])}</td>"
             f"<td class=n data-v='{d['views_per_day'] or 0}'>{human(d['views_per_day'])}</td>"
+            f"<td class=n data-v='{d['duration_sec'] or 0}'>{fmt_duration(d['duration_sec'])}</td>"
             f"<td class=n data-v='{d['age_days'] if d['age_days'] is not None else 99999}'>{d['published'] or '—'}</td></tr>")
     crit = " · ".join(f"{k}: {e(str(v))}" for k, v in meta["criteria"].items() if v not in (None, [], False))
     page = f"""<!doctype html><html lang=ru><head><meta charset=utf-8>
@@ -589,7 +598,7 @@ a{{color:inherit}} .hot b{{color:var(--hot)}} .warm b{{color:var(--warm)}}
 <h1>Ролики с аномальными просмотрами — {len(results)}</h1>
 <div class=meta>{e(meta['generated'])} · источник: {e(meta['backend'])} · {crit}</div>
 <div class=wrap><table id=t><thead><tr><th>#</th><th></th><th>Ролик</th><th>× к медиане</th><th>Просмотры</th>
-<th>Медиана канала</th><th>Подписчики</th><th>Просм./подп.</th><th>Просм./день</th><th>Дата</th></tr></thead>
+<th>Медиана канала</th><th>Подписчики</th><th>Просм./подп.</th><th>Просм./день</th><th>Длит.</th><th>Дата</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table></div>
 <script>
 document.querySelectorAll('#t th').forEach((th,i)=>th.onclick=()=>{{
@@ -619,10 +628,10 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--limit", type=int, default=100, help="сколько роликов брать из поиска на каждый запрос")
     g.add_argument("--period", choices=list(PERIODS), help="фильтр поиска по дате загрузки")
     g.add_argument("--days", type=float, help="(api) загружено за последние N дней — точнее, чем --period")
-    g.add_argument("--search-sort", choices=["relevance", "views", "date", "rating"], default="relevance",
-                   help="сортировка выдачи поиска")
-    g.add_argument("--search-duration", choices=["short", "medium", "long"],
-                   help="фильтр поиска YouTube: short <4 мин, medium 4–20, long >20")
+    g.add_argument("--search-sort", nargs="+", choices=["relevance", "views", "date", "rating"],
+                   default=["relevance"], help="сортировка выдачи поиска (можно несколько: relevance views)")
+    g.add_argument("--search-duration", nargs="+", choices=["short", "medium", "long"],
+                   help="фильтр поиска YouTube: short <4 мин, medium 4–20, long >20 (можно несколько)")
     g.add_argument("--region", help="(api) код страны, напр. RU, US")
     g.add_argument("--lang", help="(api) язык выдачи, напр. ru, en")
 
@@ -702,6 +711,8 @@ def main(argv=None) -> int:
     kinds = {"long", "shorts"} if a.type == "all" else {a.type}
     if a.type == "shorts" and not a.search_duration:
         a.search_duration = "short"  # фильтр поиска «до 4 минут»
+    as_list = lambda x: [x] if isinstance(x, str) or x is None else list(x)  # noqa: E731
+    durations, sorts = as_list(a.search_duration), as_list(a.search_sort)
     cache = Cache(Path(".cache") / "yt_outliers_channels.json", a.cache_ttl)
     now = datetime.now(timezone.utc)
     log(f"Источник данных: {backend_name}")
@@ -709,17 +720,24 @@ def main(argv=None) -> int:
     # 1. Кандидаты
     candidates: dict[str, Video] = {}
     channels: dict[str, Channel] = {}
-    for q in a.query:
-        log(f"Поиск: «{q}» …")
+    jobs = [(q, d, s) for q in a.query for d in durations for s in sorts]
+
+    def run_search(job):
+        q, d, s = job
         try:
-            found = be.search(q, a.limit, a.period, a.search_duration, a.search_sort,
-                              days=a.days, region=a.region, lang=a.lang)
+            return be.search(q, a.limit, a.period, d, s, days=a.days, region=a.region, lang=a.lang)
         except Exception as ex:
-            log(f"  ! ошибка поиска: {ex}")
-            continue
-        log(f"  найдено роликов: {len(found)}")
-        for v in found:
-            candidates.setdefault(v.id, v)
+            log(f"  ! ошибка поиска «{q}»: {ex}")
+            return []
+
+    if jobs:
+        log(f"Поисковых запросов: {len(jobs)} …")
+        with ThreadPoolExecutor(a.workers) as ex:
+            for i, ((q, d, s), found) in enumerate(zip(jobs, ex.map(run_search, jobs)), 1):
+                new = sum(1 for v in found if v.id not in candidates)
+                for v in found:
+                    candidates.setdefault(v.id, v)
+                log(f"  [{i}/{len(jobs)}] «{q}» {d or ''} {s}: {len(found)} роликов, новых {new}")
 
     def load_channel(ref: str, kinds: set[str] = kinds) -> Channel | None:
         key = f"{backend_name}|{ref}|{a.baseline_videos}|{','.join(sorted(kinds))}"
@@ -747,14 +765,31 @@ def main(argv=None) -> int:
                 for v in ch.videos:
                     candidates.setdefault(v.id, v)
 
+    # Отсекаем заведомо неподходящих кандидатов ДО загрузки каналов — экономит время
+    def cheap_ok(v: Video) -> bool:
+        t = v.title.lower()
+        return ((a.min_views is None or (v.views or 0) >= a.min_views)
+                and (a.max_views is None or (v.views or 0) <= a.max_views)
+                and (a.min_duration is None or v.duration is None or v.duration >= a.min_duration)
+                and (a.max_duration is None or v.duration is None or v.duration <= a.max_duration)
+                and not (a.type == "long" and v.is_short and v.duration and v.duration <= 60)
+                and (not a.title_include or any(w.lower() in t for w in a.title_include))
+                and not any(w.lower() in t for w in a.title_exclude or []))
+
+    before = len(candidates)
+    candidates = {k: v for k, v in candidates.items() if v.channel_id in channels or cheap_ok(v)}
+    if before != len(candidates):
+        log(f"Предфильтр: осталось {len(candidates)} из {before} роликов")
+
     # 3. Базовые линии для каналов из поиска
     need = sorted({v.channel_id for v in candidates.values() if v.channel_id and v.channel_id not in channels})
     if need:
         log(f"Считаю медианы для каналов: {len(need)} (это самая долгая часть) …")
         done = 0
         with ThreadPoolExecutor(a.workers) as ex:
-            # Для роликов из поиска грузим обе вкладки: так точно узнаём формат (Shorts/обычный)
-            both = {"long", "shorts"}
+            # Для роликов из поиска грузим обе вкладки: так точно узнаём формат (Shorts/обычный).
+            # Если нужны только длинные — хватит вкладки «Видео».
+            both = {"long"} if a.type == "long" else {"long", "shorts"}
             for cid, ch in zip(need, ex.map(lambda c: load_channel(c, both), need)):
                 done += 1
                 if ch:

@@ -1,0 +1,109 @@
+# Животные — запросы на разных языках (по одному на строку)
+# English
+animals
+wild animals
+wildlife documentary
+animal documentary
+nature documentary animals
+animal facts
+predators hunting
+ocean animals
+deep sea creatures
+sharks
+lions
+snakes
+birds
+insects
+dangerous animals
+animal rescue
+cats
+dogs
+funny animals
+strange animals
+rare animals
+extinct animals
+animal attacks
+# Русский
+животные
+дикие животные
+документальный фильм о животных
+фильм про животных
+интересные факты о животных
+хищники
+обитатели океана
+змеи
+спасение животных
+кошки
+собаки
+необычные животные
+# Українська
+тварини
+дикі тварини
+# Español
+animales
+animales salvajes
+documental de animales
+animales del océano
+rescate de animales
+# Português
+animais
+animais selvagens
+documentário animais
+# Deutsch
+Tiere
+wilde Tiere
+Tierdokumentation
+# Français
+animaux
+animaux sauvages
+documentaire animalier
+# Italiano
+animali
+animali selvatici
+documentario animali
+# Polski
+zwierzęta
+dzikie zwierzęta
+# Nederlands
+dieren
+# Türkçe
+hayvanlar
+vahşi hayvanlar
+hayvan belgeseli
+# العربية
+حيوانات
+الحيوانات المفترسة
+وثائقي حيوانات
+# हिन्दी
+जानवर
+जंगली जानवर
+# বাংলা
+প্রাণী
+# 日本語
+動物
+野生動物
+動物 ドキュメンタリー
+# 한국어
+동물
+야생동물
+동물 다큐
+# 中文
+动物
+野生动物
+动物纪录片
+動物紀錄片
+# Bahasa Indonesia
+hewan
+hewan liar
+# Tiếng Việt
+động vật
+động vật hoang dã
+# ไทย
+สัตว์
+สัตว์ป่า
+# فارسی
+حیوانات
+# Kiswahili
+wanyama
+# Filipino
+mga hayop

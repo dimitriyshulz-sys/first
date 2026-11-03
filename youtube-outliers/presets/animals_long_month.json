@@ -1,0 +1,16 @@
+{
+  "queries_file": "presets/animals_queries.txt",
+  "period": "month",
+  "search_duration": ["medium", "long"],
+  "search_sort": ["relevance", "views"],
+  "limit": 60,
+  "type": "long",
+  "min_duration": 240,
+  "min_score": 3,
+  "min_views": 10000,
+  "max_per_channel": 2,
+  "title_exclude": ["minecraft", "roblox", "мульт", "cartoon", "dog tv", "cat tv", "music for", "музыка для", "live", "стрим", "nursery"],
+  "baseline_videos": 30,
+  "workers": 8,
+  "top": 500
+}
