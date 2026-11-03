@@ -549,6 +549,7 @@ def passes(r: Result, a) -> bool:
         a.max_duration is None or (v.duration is not None and v.duration <= a.max_duration),
         not a.title_include or any(w.lower() in title for w in a.title_include),
         not any(w.lower() in title for w in a.title_exclude or []),
+        not a.title_regex or re.search(a.title_regex, f"{v.title} {v.channel}", re.I) is not None,
     ]
     if a.max_age_days is not None:
         checks.append(r.age_days <= a.max_age_days if r.age_days is not None else not a.strict_dates)
@@ -712,6 +713,7 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--max-duration", type=int, help="макс. длительность, сек")
     g.add_argument("--title-include", action="append", default=[], help="в названии есть слово (любое из)")
     g.add_argument("--title-exclude", action="append", default=[], help="исключить, если в названии слово")
+    g.add_argument("--title-regex", help="регулярное выражение: название или канал должны ему соответствовать (без учёта регистра)")
     g.add_argument("--max-per-channel", type=int, default=3, help="не больше N роликов с одного канала (0 = без лимита)")
     g.add_argument("--keep-unscored", action="store_true", help="оставлять ролики, для которых не удалось посчитать медиану")
 
@@ -834,7 +836,8 @@ def main(argv=None) -> int:
                 and (a.max_duration is None or v.duration is None or v.duration <= a.max_duration)
                 and not (a.type == "long" and v.is_short and v.duration and v.duration <= 60)
                 and (not a.title_include or any(w.lower() in t for w in a.title_include))
-                and not any(w.lower() in t for w in a.title_exclude or []))
+                and not any(w.lower() in t for w in a.title_exclude or [])
+                and (not a.title_regex or re.search(a.title_regex, f"{v.title} {v.channel}", re.I) is not None))
 
     before = len(candidates)
     candidates = {k: v for k, v in candidates.items() if v.channel_id in channels or cheap_ok(v)}
@@ -900,7 +903,7 @@ def main(argv=None) -> int:
         out = Path(a.out)
         out.mkdir(parents=True, exist_ok=True)
         stamp = now.astimezone().strftime("%Y%m%d_%H%M%S")
-        crit_keys = ["query", "channel", "type", "period", "days", "min_score", "min_zscore", "min_views",
+        crit_keys = ["type", "period", "days", "min_duration", "min_score", "min_ai_score", "min_zscore", "min_views",
                      "max_views", "min_subs", "max_subs", "min_views_per_sub", "min_views_per_day",
                      "max_age_days", "min_age_days", "title_include", "title_exclude"]
         meta = {"generated": now.astimezone().strftime("%Y-%m-%d %H:%M"), "backend": backend_name,
