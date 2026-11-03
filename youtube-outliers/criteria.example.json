@@ -1,0 +1,13 @@
+{
+  "query": ["рецепты пп", "быстрый ужин"],
+  "period": "month",
+  "search_sort": "relevance",
+  "limit": 100,
+  "type": "long",
+  "min_score": 3,
+  "min_views": 5000,
+  "max_subs": 100000,
+  "title_exclude": ["стрим", "live"],
+  "max_per_channel": 2,
+  "top": 50
+}
