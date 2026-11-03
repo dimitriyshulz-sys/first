@@ -1,0 +1,17 @@
+{
+  "queries_file": "presets/animal_docs_queries.txt",
+  "period": "month",
+  "search_duration": ["long"],
+  "search_sort": ["relevance", "views"],
+  "limit": 100,
+  "type": "long",
+  "min_duration": 1200,
+  "min_score": 3,
+  "min_views": 5000,
+  "max_per_channel": 3,
+  "title_exclude": ["minecraft", "roblox", "мульт", "cartoon", "kids", "baby", "nursery", "reaction", "movie", "фильм 20", "full movie", "music", "музыка", "live", "стрим", "podcast", "подкаст"],
+  "baseline_videos": 30,
+  "workers": 8,
+  "sort": "score",
+  "top": 500
+}

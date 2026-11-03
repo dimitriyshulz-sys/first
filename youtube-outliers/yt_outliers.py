@@ -66,6 +66,7 @@ class Video:
     is_short: bool | None = None
     likes: int | None = None
     comments: int | None = None
+    description: str = ""
 
     @property
     def url(self) -> str:
@@ -93,6 +94,8 @@ class Result:
     age_days: float | None
     views_per_day: float | None
     zscore: float | None  # робастный z-score по log10(просмотров)
+    ai_score: int = 0  # 0–100: эвристическая вероятность, что ролик сделан с помощью ИИ
+    ai_reasons: str = ""
 
     def row(self) -> dict:
         v = self.video
@@ -105,6 +108,8 @@ class Result:
             "views_per_sub": _r(self.views_per_sub, 2),
             "views_per_day": _r(self.views_per_day, 0),
             "zscore": _r(self.zscore, 2),
+            "ai_score": self.ai_score,
+            "ai_reasons": self.ai_reasons,
             "age_days": _r(self.age_days, 1),
             "published": v.published.date().isoformat() if v.published else None,
             "type": "shorts" if v.is_short else "long",
@@ -270,6 +275,7 @@ class YtDlpBackend:
             views=e.get("view_count"), published=published,
             duration=int(dur) if dur else None, is_short=is_short,
             likes=e.get("like_count"), comments=e.get("comment_count"),
+            description=(e.get("description") or "")[:500],
         )
 
     @staticmethod
@@ -472,7 +478,56 @@ def analyze(video: Video, ch: Channel | None, args, now: datetime) -> Result:
         age_days=age,
         views_per_day=views / max(age, 1 / 24) if age is not None else None,
         zscore=robust_z(views, base) if baseline is not None else None,
+        **dict(zip(("ai_score", "ai_reasons"), ai_likelihood(video, ch, now))),
     )
+
+
+# Явные упоминания ИИ: короткие аббревиатуры — с учётом регистра, остальное — без
+_AI_CASE = re.compile(r"(?<![\w])(AI|A\.I\.|ИИ|ШІ|KI|IA)(?![\w])")
+_AI_WORDS = re.compile(
+    r"ai[- ]generated|generated (with|by|using) ai|made (with|by|using) ai|created (with|by|using) ai|"
+    r"\bai (documentary|film|movie|video|animation|art|visuals?|narrat\w*|voice)|"
+    r"artificial intelligence|inteligencia artificial|intelig[eê]ncia artificial|intelligence artificielle|"
+    r"k[üu]nstliche intelligenz|нейросет|сгенерир|искусственн\w+ интеллект|"
+    r"\b(veo ?3?|sora|kling|runway|midjourney|hailuo|pika labs|luma dream|elevenlabs|invideo|heygen)\b|"
+    r"synthetic (content|media)|digitally generated|生成ai|ai生成|人工智能|인공지능|ai 생성", re.I)
+
+
+def ai_likelihood(video: Video, ch: Channel | None, now: datetime) -> tuple[int, str]:
+    """Эвристика «похоже на ИИ-канал». Не детектор: только косвенные признаки."""
+    score, why = 0, []
+    text = f"{video.title}\n{video.description}"
+    if _AI_WORDS.search(text) or _AI_CASE.search(text):
+        score += 45
+        why.append("ИИ в названии/описании")
+    if ch:
+        longs = [v for v in ch.videos if not v.is_short]
+        if any(_AI_WORDS.search(f"{v.title} {v.description}") or _AI_CASE.search(v.title)
+               for v in longs if v.id != video.id):
+            score += 15
+            why.append("ИИ в других роликах канала")
+        dated = sorted(v.published for v in longs if v.published)
+        if len(dated) >= 4:
+            span_w = max((dated[-1] - dated[0]).days / 7, 1)
+            rate = (len(dated) - 1) / span_w
+            long_share = sum(1 for v in longs if (v.duration or 0) >= 900) / max(len(longs), 1)
+            if long_share >= 0.6 and rate >= 2:  # 2+ фильма по 15+ мин в неделю — конвейер
+                pts = 30 if rate >= 5 else 20
+                score += pts
+                why.append(f"{rate:.1f} длинных роликов/нед")
+            if len(longs) < 30 and (now - dated[0]).days <= 120:
+                score += 15
+                why.append("молодой канал")
+        durs = [v.duration for v in longs if v.duration]
+        if len(durs) >= 6 and statistics.median(durs) >= 900:
+            cv = statistics.pstdev(durs) / statistics.mean(durs)
+            if cv < 0.2:
+                score += 10
+                why.append("одинаковая длительность")
+        if ch.subscribers is not None and ch.subscribers < 20000 and (video.views or 0) >= 100000:
+            score += 5
+            why.append("маленький канал, большой хит")
+    return min(score, 100), ", ".join(why)
 
 
 def passes(r: Result, a) -> bool:
@@ -489,6 +544,7 @@ def passes(r: Result, a) -> bool:
         a.min_views_per_sub is None or (r.views_per_sub is not None and r.views_per_sub >= a.min_views_per_sub),
         a.min_views_per_day is None or (r.views_per_day is not None and r.views_per_day >= a.min_views_per_day),
         a.min_zscore is None or (r.zscore is not None and r.zscore >= a.min_zscore),
+        a.min_ai_score is None or r.ai_score >= a.min_ai_score,
         a.min_duration is None or (v.duration is not None and v.duration >= a.min_duration),
         a.max_duration is None or (v.duration is not None and v.duration <= a.max_duration),
         not a.title_include or any(w.lower() in title for w in a.title_include),
@@ -507,6 +563,7 @@ SORT_KEYS = {
     "vps": lambda r: r.views_per_sub or 0,
     "vpd": lambda r: r.views_per_day or 0,
     "z": lambda r: r.zscore or -99,
+    "ai": lambda r: (r.ai_score, r.score or 0),
 }
 
 
@@ -535,7 +592,7 @@ def print_table(results: list[Result]) -> None:
     if not results:
         print("Ничего не найдено по заданным критериям.")
         return
-    head = f"{'#':>3} {'x-раз':>6} {'просм.':>7} {'медиана':>7} {'подп.':>7} {'пр/подп':>7} {'дней':>5} {'длит.':>7}  ролик"
+    head = f"{'#':>3} {'x-раз':>6} {'просм.':>7} {'медиана':>7} {'подп.':>7} {'пр/подп':>7} {'дней':>5} {'длит.':>7} {'ИИ':>3}  ролик"
     print(head)
     print("-" * min(len(head) + 60, 160))
     for i, r in enumerate(results, 1):
@@ -544,7 +601,7 @@ def print_table(results: list[Result]) -> None:
         age = f"{r.age_days:.0f}" if r.age_days is not None else "—"
         title = (v.title[:55] + "…") if len(v.title) > 56 else v.title
         print(f"{i:>3} {score:>6} {human(v.views):>7} {human(r.baseline):>7} {human(r.subscribers):>7} "
-              f"{human(r.views_per_sub):>7} {age:>5} {fmt_duration(v.duration) if not v.is_short else 'shorts':>7}  "
+              f"{human(r.views_per_sub):>7} {age:>5} {fmt_duration(v.duration) if not v.is_short else 'shorts':>7} {r.ai_score:>3}  "
               f"{title} | {v.channel} | {v.url}")
 
 
@@ -571,7 +628,7 @@ def write_html(results: list[Result], path: Path, meta: dict) -> None:
             f"<tr><td>{i}</td>"
             f"<td><a href='{e(d['url'])}' target=_blank><img loading=lazy src='https://i.ytimg.com/vi/{e(d['video_id'])}/mqdefault.jpg'></a></td>"
             f"<td class=t><a href='{e(d['url'])}' target=_blank>{e(d['title'])}</a><br>"
-            f"<small>{e(d['channel'])} · {d['type']}</small></td>"
+            f"<small>{e(d['channel'])} · {d['type']}{(' · <b class=ai>ИИ ' + str(d['ai_score']) + ':</b> ' + e(d['ai_reasons'])) if d['ai_score'] else ''}</small></td>"
             f"<td class='n {cls}' data-v='{d['score'] or 0}'><b>{'' if d['score'] is None else str(d['score']) + '×'}</b></td>"
             f"<td class=n data-v='{d['views'] or 0}'>{human(d['views'])}</td>"
             f"<td class=n data-v='{d['baseline_median'] or 0}'>{human(d['baseline_median'])}</td>"
@@ -579,7 +636,8 @@ def write_html(results: list[Result], path: Path, meta: dict) -> None:
             f"<td class=n data-v='{d['views_per_sub'] or 0}'>{human(d['views_per_sub'])}</td>"
             f"<td class=n data-v='{d['views_per_day'] or 0}'>{human(d['views_per_day'])}</td>"
             f"<td class=n data-v='{d['duration_sec'] or 0}'>{fmt_duration(d['duration_sec'])}</td>"
-            f"<td class=n data-v='{d['age_days'] if d['age_days'] is not None else 99999}'>{d['published'] or '—'}</td></tr>")
+            f"<td class=n data-v='{d['age_days'] if d['age_days'] is not None else 99999}'>{d['published'] or '—'}</td>"
+            f"<td class=n data-v='{d['ai_score']}' title='{e(d['ai_reasons'])}'>{d['ai_score'] or ''}</td></tr>")
     crit = " · ".join(f"{k}: {e(str(v))}" for k, v in meta["criteria"].items() if v not in (None, [], False))
     page = f"""<!doctype html><html lang=ru><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
@@ -593,12 +651,12 @@ th,td{{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle
 th{{background:var(--head);cursor:pointer;text-align:left;position:sticky;top:0;white-space:nowrap}}
 td.n{{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}}
 td.t{{max-width:420px}} small{{color:var(--mut)}} img{{width:160px;border-radius:6px;display:block}}
-a{{color:inherit}} .hot b{{color:var(--hot)}} .warm b{{color:var(--warm)}}
+a{{color:inherit}} b.ai{{color:#7c4dff}} .hot b{{color:var(--hot)}} .warm b{{color:var(--warm)}}
 </style></head><body>
 <h1>Ролики с аномальными просмотрами — {len(results)}</h1>
 <div class=meta>{e(meta['generated'])} · источник: {e(meta['backend'])} · {crit}</div>
 <div class=wrap><table id=t><thead><tr><th>#</th><th></th><th>Ролик</th><th>× к медиане</th><th>Просмотры</th>
-<th>Медиана канала</th><th>Подписчики</th><th>Просм./подп.</th><th>Просм./день</th><th>Длит.</th><th>Дата</th></tr></thead>
+<th>Медиана канала</th><th>Подписчики</th><th>Просм./подп.</th><th>Просм./день</th><th>Длит.</th><th>Дата</th><th>ИИ?</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table></div>
 <script>
 document.querySelectorAll('#t th').forEach((th,i)=>th.onclick=()=>{{
@@ -638,6 +696,8 @@ def build_parser() -> argparse.ArgumentParser:
     g = p.add_argument_group("Критерии аномальности")
     g.add_argument("--type", choices=["all", "long", "shorts"], default="all", help="формат роликов")
     g.add_argument("--min-score", type=float, default=3.0, help="во сколько раз больше медианы канала")
+    g.add_argument("--min-ai-score", type=int,
+                   help="мин. оценка «похоже на ИИ» 0–100 (эвристика: упоминания ИИ, частота загрузок, молодой канал)")
     g.add_argument("--min-zscore", type=float, help="минимальный робастный z-score (≈3 — сильный выброс)")
     g.add_argument("--min-views", type=int, default=1000, help="минимум просмотров")
     g.add_argument("--max-views", type=int, help="максимум просмотров")
